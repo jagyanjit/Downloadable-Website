@@ -1,161 +1,116 @@
-<h1 align="center">🧩 <b>Portfolio Website — Build Documentation</b></h1>
+<h1 align="center">📲 <b>Downloadable Website - Documentation</b></h1>
+
 <h2>📘 <b>Overview</b></h2>
 
-This document provides a complete, straightforward breakdown of how your personal portfolio website was built — including layout, structure, features, and the technologies used.
+This document explains how the jR website was converted into a *downloadable, installable app* — making it behave like a native application on mobile devices without requiring Play Store or App Store submission.
 
-- Fully hand-coded using **HTML**, **CSS**, and **JavaScript**
-- No external frameworks or build tools used
+- Converted the existing website into a *Progressive Web App (PWA)*
+- Fully functional offline and installable
+- Uses the same *HTML, CSS, and JavaScript* codebase
 
-<h2>⚙️ <b>Core Dependencies</b></h2> <h3>1️⃣ Font Awesome (Icons)</h3>
+<h2>⚙ <b>Core Requirements</b></h2>
 
-- Used for all interface and social icons.
+<h3>1️⃣ Web App Manifest</h3>
 
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-/>
+- A manifest.json file was created to define app metadata.
+- Includes:
+  - App name: jR
+  - Short name: jR
+  - Start URL: /index.html
+  - Display mode: standalone (full screen, no browser UI)
+  - Theme color: #000000
+  - Background color: #ffffff
+  - Icons: 192x192 and 512x512 PNG files inside /icons folder
 
-<h3>2️⃣ Web3Forms (Contact Form Backend)</h3>
+Example snippet:
 
-- Handles form submissions securely without requiring a custom server.
+<pre>
+"icons": [
+  {
+    "src": "icons/icon-192x192.png",
+    "sizes": "192x192",
+    "type": "image/png"
+  },
+  {
+    "src": "icons/icon-512x512.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  }
+]
+</pre>
 
-- Endpoint: https://api.web3forms.com/submit
+<h3>2️⃣ Linking Manifest in HTML</h3>
 
-<h2>🧱 <b>Structure & Layout</b></h2>
+- Manifest linked in <head> for browsers to recognize the app:
 
-The portfolio follows a dual-panel design for a clear separation between navigation and main content.
+<pre>
+&lt;link rel="manifest" href="manifest.json"&gt;
+&lt;meta name="theme-color" content="#000000"&gt;
+&lt;link rel="apple-touch-icon" href="icons/icon-192x192.png"&gt;
+</pre>
 
-<h3>📂 Left Sidebar (`<aside class="sidebar">`)</h3>
+<h3>3️⃣ Service Worker</h3>
 
-  - Fixed position (`width: 380px`, `height: 100vh`)
-  - Independent scroll using `overflow-y: auto`
-  - Contains:
-    - Profile photo and contact info
-    - Social links
-    - Skills section
-    - Education section
-    - Contact form
+- A minimal sw.js file was added to register the site as a PWA.
+- Handles caching and offline access.
+- Registered in HTML before </body>:
 
-<h3>🖥️ Right Content Area (`<main class="main-content">`)</h3>
+<pre>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js")
+    .then(() => console.log("Service Worker registered"));
+}
+</pre>
 
-  - Starts after the sidebar (`margin-left: 380px`)
-  - Independent scroll using `overflow-y: auto`
-  - Contains:
-    - Projects
-    - Achievements
-    - Certificates
-- Both panels use `.no-scrollbar` to hide scrollbars while keeping scroll functionality
+<h3>4️⃣ Icons</h3>
 
-<h2>🧭 <b>Header & Navigation</b></h2>
+- Two custom icons stored in `/icons` folder:
+  - **icon-192x192.png** → used for home screen and small displays  
+    <br>
+    <img src="https://raw.githubusercontent.com/jagyanjit/Downloadable-Website/main/icons/192x192.jpg" alt="192x192 Icon" width="96" style="border-radius:12px;">
 
-- Two headers are used for the layout:
-  - **Sidebar Header** — shows name/logo and scrolls both panels to top
-  - **Main Header** — contains navigation links and theme toggle
-- Navigation links use `data-target-*` and JavaScript for:
-  - Preventing default URL jumps
-  - Smooth scrolling
-  - Adjusting for fixed header height
+  - **icon-512x512.png** → used for app launcher and larger devices  
+    <br>
+    <img src="https://raw.githubusercontent.com/jagyanjit/Downloadable-Website/main/icons/512x512.jpg" alt="512x512 Icon" width="128" style="border-radius:12px;">
 
-<h2>👤 <b>Sidebar Components</b></h2> 
-
-<h3>🪪 Profile</h3> 
-
-- **Image:**
-
-![Profile Picture](https://i.ibb.co/prwhWb7M/Picsart-25-08-25-11-28-06-390.jpg) 
-
-<h3>🔗 Social Links</h3>
-
-  - 📞 Phone
-  - 💼 LinkedIn
-  - 🐙 GitHub
-  - ✖️ X (Twitter)
-  - 🧩 LeetCode
-
-<h3>🧠 Skills</h3>
-
-Each skill links to its official documentation or platform
+- Correct paths and sizes are crucial for the icon to display properly on mobile devices.
 
 
-| Skill        | Link                                                                                                                   |
-| :----------- | :--------------------------------------------------------------------------------------------------------------------- |
-| C++          | [https://isocpp.org/](https://isocpp.org/)                                                                             |
-| Python       | [https://www.python.org/](https://www.python.org/)                                                                     |
-| HTML         | [https://developer.mozilla.org/en-US/docs/Web/HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)                 |
-| CSS          | [https://developer.mozilla.org/en-US/docs/Web/CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)                   |
-| JavaScript   | [https://developer.mozilla.org/en-US/docs/Web/JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)     |
-| AWS          | [https://aws.amazon.com/](https://aws.amazon.com/)                                                                     |
-| Docker       | [https://www.docker.com/](https://www.docker.com/)                                                                     |
-| Kubernetes   | [https://kubernetes.io/](https://kubernetes.io/)                                                                       |
-| Terraform    | [https://www.terraform.io/](https://www.terraform.io/)                                                                 |
-| Git/GitHub   | [https://github.com/](https://github.com/)                                                                             |
-| CI/CD        | [https://www.redhat.com/en/topics/devops/what-is-ci-cd](https://www.redhat.com/en/topics/devops/what-is-ci-cd)         |
-| DevSecOps    | [https://www.redhat.com/en/topics/devops/what-is-devsecops](https://www.redhat.com/en/topics/devops/what-is-devsecops) |
-| Scikit-learn | [https://scikit-learn.org/](https://scikit-learn.org/)                                                                 |
-| Pandas       | [https://pandas.pydata.org/](https://pandas.pydata.org/)                                                               |
-| Keras        | [https://keras.io/](https://keras.io/)                                                                                 |
-| NumPy        | [https://numpy.org/](https://numpy.org/)                                                                               |
-| TensorFlow   | [https://www.tensorflow.org/](https://www.tensorflow.org/)                                                             |
+<h2>🧱 <b>Folder Structure</b></h2>
 
+<pre>
+D:\jR
+├── index.html
+├── manifest.json
+├── sw.js
+└── icons/
+    ├── icon-192x192.png
+    └── icon-512x512.png
+</pre>
 
+<h2>🚀 <b>Deployment & Access</b></h2>
 
-<h3>🎓 Education</h3>
+- *Hosting*
+  - Project uploaded to *GitHub* and deployed using *Vercel* for HTTPS access.
+  - Example URL: https://jagyanjit.vercel.app
+- *Installing on Phone*
+  - Open the website URL on mobile Chrome/Android or Safari/iOS
+  - *Chrome (Android):* Menu → Add to Home Screen → Install
+  - *Safari (iOS):* Share → Add to Home Screen
+- *Behavior*
+  - Launches in full-screen mode
+  - Shows custom app icon
+  - Can work offline (thanks to service worker)
 
-Lists institutions with websites and logos
+<h2>📌 <b>Key Notes</b></h2>
 
-| **Institution**             | **Website**                                   | **Logo**                                                                                  |
-| :-------------------------- | :-------------------------------------------- | :---------------------------------------------------------------------------------------- |
-| Silicon University          | [silicon.ac.in](https://silicon.ac.in/)       | ![Logo](https://drive.google.com/thumbnail?id=1WVmcv47k-PG7B37FUfZ6t-ag7IXfhBt2\&sz=w200) |
-| Nayagarh Higher Sec. School | [ngrautocol.ac.in](https://ngrautocol.ac.in/) | ![Logo](https://drive.google.com/thumbnail?id=1dAvwAPbOhWgLqE2okTfpwRxuU4Y1JG-h\&sz=w200) |
-| D.A.V. Public School        | [davpuri.org](http://davpuri.org/)            | ![Logo](https://drive.google.com/thumbnail?id=1JVCYbKEl6Hm-Gw8bA1VOthijJ8oJzY5T\&sz=w200) |
-
-<h3>📨 Contact Form</h3>
-
-- Submits directly to your inbox via Web3Forms.
-- Includes a hidden access key for authentication.
-
-<form action="https://api.web3forms.com/submit" method="POST">
-  <input
-    type="hidden"
-    name="access_key"
-    value="c34a790c-ec56-438e-9ed6-02099e52ef76"
-  />
-</form>
-
-<h2>🧩 <b>Projects & Achievements</b></h2>
-
-- Projects displayed in responsive grids with modals for details
-- Each card includes:
-  - Project name
-  - Repository / documentation link
-  - Thumbnail or preview
-- Clicking a project opens a modal for extended info
-- Certificates and education logos use a similar grid pattern
-
-| **Project**          | **Repository / Docs**                                                                                                                               | **Preview**                                                                                   |
-| :------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------- |
-| Morse Code Converter | [GitHub](https://github.com/jagyanjit/Morse-Code-Converter)                                                                                         | ![Preview](https://vumbnail.com/1122621998.jpg)                                               |
-| Mobile App UI        | [GitHub](https://github.com/jagyanjit/Dummy-Mobile-App)                                                                                             | ![Preview](https://vumbnail.com/1122725179.jpg)                                               |
-| DevOps Project       | [Repo](https://github.com/jagyanjit/DevopsProject1) / [Docs](https://docs.google.com/document/d/1BrmY6poKK3PfhS8PtQmzWv3cpQSjZQxX/edit?usp=sharing) | ![Preview](https://drive.google.com/thumbnail?id=1MkU47ro2UFx3qxlwVIrXY-ot6cNTj_2b\&sz=w1000) |
-| ML Crop Model        | [Notebook](https://github.com/jagyanjit/Machine-Learning-and-Deep-Learning/blob/main/Project_crop.ipynb)                                            | ![Preview](https://drive.google.com/thumbnail?id=1XO2P8jRlKUwItV5bvi2_Qxmk7a4g0GSQ\&sz=w1000) |
-| ML Covid Model       | [Notebook](https://github.com/jagyanjit/Machine-Learning-and-Deep-Learning/blob/main/Project_covid.ipynb)                                           | ![Preview](https://drive.google.com/thumbnail?id=1XO2P8jRlKUwItV5bvi2_Qxmk7a4g0GSQ\&sz=w1000) |
-
-
-Tip: Clicking a card opens its modal with more info.
-Certificates and education logos follow a similar responsive grid layout.
-
-<h2>🌗 <b>Theme Toggle</b></h2>
-
-A simple light/dark mode switch implemented using:
-
-- **HTML:** Checkbox toggle inside a label
-- **CSS:** Moves slider and switches icons
-- **JavaScript:** Stores theme preference in `localStorage`
+- This approach makes the website *behave like a native app* without uploading to Play Store.
+- For full APK/Android wrapper, tools like *PWABuilder* or *Capacitor* can convert the PWA into a standalone APK.
+- Clear cache or uninstall previous versions to see updated icons or manifest changes.
 
 <h2>✅ <b>Summary</b></h2>
 
-- Fully custom-built using **HTML**, **CSS**, and **JavaScript**
-- Dual-panel responsive layout
-- Smooth navigation and accessible UI
-- Integrated contact form via **Web3Forms**
-- Dynamic modals and theme toggle for better UX
+- Converted jR website into a *downloadable PWA*
+- Added manifest, icons, and service worker
+- Fully installable on Android and iOS without app stores
+- Offline-capable and retains the same responsive design and features
