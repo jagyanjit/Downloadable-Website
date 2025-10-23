@@ -92,7 +92,7 @@ D:\jR
 
 - *Hosting*
   - Project uploaded to *GitHub* and deployed using *Vercel* for HTTPS access.
-  - Example URL: https://geekyjr.vercel.app
+  - Example URL: https://jagyanjit.vercel.app
 - *Installing on Phone*
   - Open the website URL on mobile Chrome/Android or Safari/iOS
   - *Chrome (Android):* Menu → Add to Home Screen → Install
