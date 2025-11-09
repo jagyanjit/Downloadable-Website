@@ -1429,7 +1429,7 @@
         </div>
 
         <footer class="main-content-footer">
-             <img id="github-stats-graph-main" alt="GitHub Contribution Graph"/>
+             <img id="github-stats-graph-main" src="https://raw.githubusercontent.com/jagyanjit/jagyanjit/main/profile-3d-contrib/profile-night-rainbow.svg" alt="GitHub 3D Contribution Graph"/>
         </footer>
     </main>
 
@@ -1728,25 +1728,18 @@
             });
 
 
-            // --- Theme Toggle & GitHub Graph Logic ---
+            // --- Theme Toggle Logic ---
             const themeCheckbox = document.getElementById('theme-checkbox');
             const body = document.body;
-            const statsGraphMain = document.getElementById('github-stats-graph-main');
-            const username = 'jagyanjit';
-
-            const darkGraphUrl = `https://github-readme-activity-graph.vercel.app/graph?username=${username}&bg_color=0d1117&color=238636&line=30363d&point=c9d1d9&area=true&hide_border=true`;
-            const lightGraphUrl = `https://github-readme-activity-graph.vercel.app/graph?username=${username}&bg_color=ffffff&color=1a7f37&line=d0d7de&point=57606a&area=true&hide_border=true`;
 
             function setTheme(isLight) {
                 if (isLight) {
                     body.classList.add('light-mode');
                     themeCheckbox.checked = true;
-                    statsGraphMain.src = lightGraphUrl;
                     localStorage.setItem('theme', 'light');
                 } else {
                     body.classList.remove('light-mode');
                     themeCheckbox.checked = false;
-                    statsGraphMain.src = darkGraphUrl;
                     localStorage.setItem('theme', 'dark');
                 }
             }
